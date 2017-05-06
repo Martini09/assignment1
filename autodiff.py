@@ -298,10 +298,7 @@ class Executor:
         # Traverse graph in topological sort order and compute values for all nodes.
         topo_order = find_topo_sort(self.eval_node_list)
         """TODO: Your code here"""
-        print 'run'
         for node in topo_order:
-            print node
-
             if node not in node_to_val_map:
                 input_vals = []
                 for input_node in node.inputs:
@@ -341,12 +338,8 @@ def gradients(output_node, node_list):
     """TODO: Your code here"""
     print 'gradients'
     for node in reverse_topo_order:
-        print 'Current node'
-        print node
-
-        # Step 1: sum partial adjoints from output edges        
+       # Step 1: sum partial adjoints from output edges
         output_grads_list = node_to_output_grads_list[node]
-        assert(len(output_grads_list)) > 0
         output_grad = output_grads_list[0]
         for i in range(1, len(output_grads_list)):
             output_grad += output_grads_list[i]
@@ -358,7 +351,6 @@ def gradients(output_node, node_list):
             continue
 
         input_grad_list = node.op.gradient(node, output_grad)
-        assert(len(input_grad_list) == len(node.inputs))
         for i in range(len(node.inputs)):
             if not node.inputs[i] in node_to_output_grads_list:
                 node_to_output_grads_list[node.inputs[i]] = []
